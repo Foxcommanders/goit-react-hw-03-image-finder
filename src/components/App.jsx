@@ -65,7 +65,8 @@ export class App extends Component {
   };
 
   render() {
-    const buttonOption = this.state.page * 12 >= this.state.totalImages;
+    const buttonOption = this.state.page < Math.ceil(this.state.totalImages / 12);
+  
     return (
       <Section>
         <Searchbar onSearchPictures={this.onSearchPictures} />
@@ -80,8 +81,8 @@ export class App extends Component {
             modalData={this.state.modal.modalData}
           />
         )}
-        {this.state.images.length > 0 && (
-          <Button handlerClick={this.loadMore} disabled={buttonOption} />
+        {buttonOption && !this.state.loading && this.state.images.length > 0 && (
+          <Button handlerClick={this.loadMore} />
         )}
       </Section>
     );
